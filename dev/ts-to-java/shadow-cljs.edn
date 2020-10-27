@@ -1,0 +1,8 @@
+;; shadow-cljs configuration
+{:deps {:aliases [:generate-java :test]}
+
+ :dependencies
+ []
+
+ :builds
+ {}}

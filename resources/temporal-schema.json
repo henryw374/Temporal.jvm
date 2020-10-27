@@ -1,0 +1,964 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Temporal.ArithmeticOptions": {
+            "properties": {
+                "overflow": {
+                    "description": "Controls handling of out-of-range arithmetic results.\n\nIf a result is out of range, then `'constrain'` will clamp the result to\nthe allowed range, while `'reject'` will throw a RangeError.\n\nThe default is `'constrain'`.",
+                    "enum": [
+                        "constrain",
+                        "reject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.AssignmentOptions": {
+            "properties": {
+                "overflow": {
+                    "description": "How to deal with out-of-range values\n\n- In `'constrain'` mode, out-of-range values are clamped to the nearest\n   in-range value.\n- In `'reject'` mode, out-of-range values will cause the function to\n   throw a RangeError.\n\nThe default is `'constrain'`.",
+                    "enum": [
+                        "constrain",
+                        "reject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.Calendar": {
+            "description": "A `Temporal.Calendar` is a representation of a calendar system. It includes\ninformation about how many days are in each year, how many months are in\neach year, how many days are in each month, and how to do arithmetic in\\\nthat calendar system.\n\nSee https://tc39.es/proposal-temporal/docs/calendar.html for more details.",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.CalendarProtocol": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.ComparisonResult": {
+            "enum": [
+                -1,
+                0,
+                1
+            ],
+            "type": "number"
+        },
+        "Temporal.ConstructorOf": {
+            "type": "object"
+        },
+        "Temporal.Date": {
+            "description": "A `Temporal.Date` represents a calendar date. \"Calendar date\" refers to the\nconcept of a date as expressed in everyday usage, independent of any time\nzone. For example, it could be used to represent an event on a calendar\nwhich happens during the whole day no matter which time zone it's happening\nin.\n\nSee https://tc39.es/proposal-temporal/docs/date.html for more details.",
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "dayOfWeek": {
+                    "type": "number"
+                },
+                "dayOfYear": {
+                    "type": "number"
+                },
+                "daysInMonth": {
+                    "type": "number"
+                },
+                "daysInWeek": {
+                    "type": "number"
+                },
+                "daysInYear": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "isLeapYear": {
+                    "type": "boolean"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "monthsInYear": {
+                    "type": "number"
+                },
+                "weekOfYear": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateISOFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "isoDay": {
+                    "type": "number"
+                },
+                "isoMonth": {
+                    "type": "number"
+                },
+                "isoYear": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateLike": {
+            "properties": {
+                "calendar": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Temporal.CalendarProtocol"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "day": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateTime": {
+            "description": "A `Temporal.DateTime` represents a calendar date and wall-clock time, with\na precision in nanoseconds, and without any time zone. Of the Temporal\nclasses carrying human-readable time information, it is the most general\nand complete one. `Temporal.Date`, `Temporal.Time`, `Temporal.YearMonth`,\nand `Temporal.MonthDay` all carry less information and should be used when\ncomplete information is not required.\n\nSee https://tc39.es/proposal-temporal/docs/datetime.html for more details.",
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "dayOfWeek": {
+                    "type": "number"
+                },
+                "dayOfYear": {
+                    "type": "number"
+                },
+                "daysInMonth": {
+                    "type": "number"
+                },
+                "daysInWeek": {
+                    "type": "number"
+                },
+                "daysInYear": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "hour": {
+                    "type": "number"
+                },
+                "isLeapYear": {
+                    "type": "boolean"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "monthsInYear": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                },
+                "weekOfYear": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateTimeFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "hour": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateTimeISOFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "hour": {
+                    "type": "number"
+                },
+                "isoDay": {
+                    "type": "number"
+                },
+                "isoMonth": {
+                    "type": "number"
+                },
+                "isoYear": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DateTimeLike": {
+            "properties": {
+                "calendar": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Temporal.CalendarProtocol"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "day": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "hour": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DifferenceOptions": {
+            "description": "Options to control the result of `difference()` methods in `Temporal`\ntypes.",
+            "properties": {
+                "largestUnit": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "enum": [
+                                "auto"
+                            ],
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The largest unit to allow in the resulting `Temporal.Duration` object.\n\nValid values may include `'years'`, `'months'`, `'days'`, `'hours'`,\n`'minutes'`, `'seconds'`, `'milliseconds'`, `'microseconds'`,\n`'nanoseconds'` and `'auto'`, although some types may throw an exception\nif a value is used that would produce an invalid result. For example,\n`hours` is not accepted by `Date.prototype.difference()`.\n\nThe default is always `'auto'`, though the meaning of this depends on the\ntype being used."
+                },
+                "roundingIncrement": {
+                    "description": "Allows rounding to an integer number of units. For example, to round to\nincrements of a half hour, use `{ smallestUnit: 'minute',\nroundingIncrement: 30 }`.",
+                    "type": "number"
+                },
+                "roundingMode": {
+                    "$ref": "#/definitions/Temporal.RoundingMode",
+                    "description": "Controls how rounding is performed:\n- `nearest`: Round to the nearest of the values allowed by\n   `roundingIncrement` and `smallestUnit`. When there is a tie, round away\n   from zero like `ceil` for positive durations and like `floor` for\n   negative durations. This mode is the default.\n- `ceil`: Always round up, towards the end of time.\n- `trunc`: Always round down, towards the beginning of time.\n- `floor`: Also round down, towards the beginning of time. This mode acts\n   the same as `trunc`, but it's included for consistency with\n   `Temporal.Duration.round()` where negative values are allowed and\n   `trunc` rounds towards zero, unlike `floor` which rounds towards\n   negative infinity which is usually unexpected. For this reason, `trunc`\n   is recommended for most use cases."
+                },
+                "smallestUnit": {
+                    "description": "The unit to round to. For example, to round to the nearest minute, use\n`smallestUnit: 'minute'`. This option is required for `round()` and\noptional for `difference()`.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.Duration": {
+            "description": "A `Temporal.Duration` represents an immutable duration of time which can be\nused in date/time arithmetic.\n\nSee https://tc39.es/proposal-temporal/docs/duration.html for more details.",
+            "properties": {
+                "days": {
+                    "type": "number"
+                },
+                "hours": {
+                    "type": "number"
+                },
+                "microseconds": {
+                    "type": "number"
+                },
+                "milliseconds": {
+                    "type": "number"
+                },
+                "minutes": {
+                    "type": "number"
+                },
+                "months": {
+                    "type": "number"
+                },
+                "nanoseconds": {
+                    "type": "number"
+                },
+                "seconds": {
+                    "type": "number"
+                },
+                "sign": {
+                    "enum": [
+                        -1,
+                        0,
+                        1
+                    ],
+                    "type": "number"
+                },
+                "weeks": {
+                    "type": "number"
+                },
+                "years": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DurationFields": {
+            "properties": {
+                "days": {
+                    "type": "number"
+                },
+                "hours": {
+                    "type": "number"
+                },
+                "microseconds": {
+                    "type": "number"
+                },
+                "milliseconds": {
+                    "type": "number"
+                },
+                "minutes": {
+                    "type": "number"
+                },
+                "months": {
+                    "type": "number"
+                },
+                "nanoseconds": {
+                    "type": "number"
+                },
+                "seconds": {
+                    "type": "number"
+                },
+                "weeks": {
+                    "type": "number"
+                },
+                "years": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DurationLike": {
+            "properties": {
+                "days": {
+                    "type": "number"
+                },
+                "hours": {
+                    "type": "number"
+                },
+                "microseconds": {
+                    "type": "number"
+                },
+                "milliseconds": {
+                    "type": "number"
+                },
+                "minutes": {
+                    "type": "number"
+                },
+                "months": {
+                    "type": "number"
+                },
+                "nanoseconds": {
+                    "type": "number"
+                },
+                "seconds": {
+                    "type": "number"
+                },
+                "weeks": {
+                    "type": "number"
+                },
+                "years": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DurationOptions": {
+            "properties": {
+                "overflow": {
+                    "description": "How to deal with out-of-range values\n\n- In `'constrain'` mode, out-of-range values are clamped to the nearest\n   in-range value.\n- In `'balance'` mode, out-of-range values are resolved by balancing them\n   with the next highest unit.\n\nThe default is `'constrain'`.",
+                    "enum": [
+                        "balance",
+                        "constrain"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.DurationRoundOptions": {
+            "properties": {
+                "largestUnit": {
+                    "description": "The largest unit to allow in the resulting `Temporal.Duration` object.\n\nValid values may include `'years'`, `'months'`, `'days'`, `'hours'`,\n`'minutes'`, `'seconds'`, `'milliseconds'`, `'microseconds'`,\n`'nanoseconds'` and `'auto'`.\n\nThe default is `'auto'`, which means \"the largest nonzero unit in the\ninput duration\". This default prevents expanding durations to larger\nunits unless the caller opts into this behavior.\n\nIf `smallestUnit` is larger, then `smallestUnit` will be used as\n`largestUnit`, superseding a caller-supplied or default value.",
+                    "enum": [
+                        "auto",
+                        "day",
+                        "days",
+                        "hour",
+                        "hours",
+                        "microsecond",
+                        "microseconds",
+                        "millisecond",
+                        "milliseconds",
+                        "minute",
+                        "minutes",
+                        "month",
+                        "months",
+                        "nanosecond",
+                        "nanoseconds",
+                        "second",
+                        "seconds",
+                        "weeks",
+                        "year",
+                        "years"
+                    ],
+                    "type": "string"
+                },
+                "relativeTo": {
+                    "anyOf": [
+                        {
+                            "properties": {
+                                "calendar": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/definitions/Temporal.CalendarProtocol"
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "day": {
+                                    "type": "number"
+                                },
+                                "era": {
+                                    "type": "string"
+                                },
+                                "hour": {
+                                    "type": "number"
+                                },
+                                "microsecond": {
+                                    "type": "number"
+                                },
+                                "millisecond": {
+                                    "type": "number"
+                                },
+                                "minute": {
+                                    "type": "number"
+                                },
+                                "month": {
+                                    "type": "number"
+                                },
+                                "nanosecond": {
+                                    "type": "number"
+                                },
+                                "second": {
+                                    "type": "number"
+                                },
+                                "year": {
+                                    "type": "number"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "$ref": "#/definitions/Temporal.DateTime"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "The starting point to use when converting between or rounding to years,\nmonths, weeks, and days. It must be a Temporal.DateTime, or a value that\ncan be passed to Temporal.DateTime.from(), like a `Temporal.Date`."
+                },
+                "roundingIncrement": {
+                    "description": "Allows rounding to an integer number of units. For example, to round to\nincrements of a half hour, use `{ smallestUnit: 'minute',\nroundingIncrement: 30 }`.",
+                    "type": "number"
+                },
+                "roundingMode": {
+                    "description": "Controls how rounding is performed:\n- `nearest`: Round to the nearest of the values allowed by\n   `roundingIncrement` and `smallestUnit`. When there is a tie, round away\n   from zero like `ceil` for positive durations and like `floor` for\n   negative durations. This mode is the default.\n- `ceil`: Always round towards positive infinity. For negative durations\n   this option will decrease the absolute value of the duration which may\n   be unexpected. To round away from zero, use `ceil` for positive\n   durations and `floor` for negative durations.\n- `trunc`: Always round down towards zero.\n- `floor`: Always round towards negative infinity. This mode acts the\n   same as `trunc` for positive durations but for negative durations it\n   will increase the absolute value of the result which may be unexpected.\n   For this reason, `trunc` is recommended for most \"round down\" use\n   cases.",
+                    "enum": [
+                        "ceil",
+                        "floor",
+                        "nearest",
+                        "trunc"
+                    ],
+                    "type": "string"
+                },
+                "smallestUnit": {
+                    "description": "The unit to round to. For example, to round to the nearest minute, use\n`smallestUnit: 'minute'`. This option is required.",
+                    "enum": [
+                        "day",
+                        "days",
+                        "hour",
+                        "hours",
+                        "microsecond",
+                        "microseconds",
+                        "millisecond",
+                        "milliseconds",
+                        "minute",
+                        "minutes",
+                        "month",
+                        "months",
+                        "nanosecond",
+                        "nanoseconds",
+                        "second",
+                        "seconds",
+                        "weeks",
+                        "year",
+                        "years"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.Instant": {
+            "description": "A `Temporal.Instant` is an exact point in time, with a precision in\nnanoseconds. No time zone or calendar information is present. Therefore,\n`Temporal.Instant` has no concept of days, months, or even hours.\n\nFor convenience of interoperability, it internally uses nanoseconds since\nthe {@link https://en.wikipedia.org/wiki/Unix_time|Unix epoch} (midnight\nUTC on January 1, 1970). However, a `Temporal.Instant` can be created from\nany of several expressions that refer to a single point in time, including\nan {@link https://en.wikipedia.org/wiki/ISO_8601|ISO 8601 string} with a\ntime zone offset such as '2020-01-23T17:04:36.491865121-08:00'.\n\nSee https://tc39.es/proposal-temporal/docs/instant.html for more details.",
+            "properties": {
+                "epochMicroseconds": {
+                    "type": "number"
+                },
+                "epochMilliseconds": {
+                    "type": "number"
+                },
+                "epochNanoseconds": {
+                    "type": "number"
+                },
+                "epochSeconds": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.MonthDay": {
+            "description": "A `Temporal.MonthDay` represents a particular day on the calendar, but\nwithout a year. For example, it could be used to represent a yearly\nrecurring event, like \"Bastille Day is on the 14th of July.\"\n\nSee https://tc39.es/proposal-temporal/docs/monthday.html for more details.",
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.MonthDayFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "day": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.MonthDayLike": {
+            "properties": {
+                "calendar": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Temporal.CalendarProtocol"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "day": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.Omit": {
+            "type": "object"
+        },
+        "Temporal.Required": {
+            "type": "object"
+        },
+        "Temporal.RoundOptions": {
+            "description": "Options to control rounding behavior",
+            "properties": {
+                "roundingIncrement": {
+                    "description": "Allows rounding to an integer number of units. For example, to round to\nincrements of a half hour, use `{ smallestUnit: 'minute',\nroundingIncrement: 30 }`.",
+                    "type": "number"
+                },
+                "roundingMode": {
+                    "description": "Controls how rounding is performed:\n- `nearest`: Round to the nearest of the values allowed by\n   `roundingIncrement` and `smallestUnit`. When there is a tie, round up.\n   This mode is the default.\n- `ceil`: Always round up, towards the end of time.\n- `trunc`: Always round down, towards the beginning of time.\n- `floor`: Also round down, towards the beginning of time. This mode acts\n   the same as `trunc`, but it's included for consistency with\n   `Temporal.Duration.round()` where negative values are allowed and\n   `trunc` rounds towards zero, unlike `floor` which rounds towards\n   negative infinity which is usually unexpected. For this reason, `trunc`\n   is recommended for most use cases.",
+                    "enum": [
+                        "ceil",
+                        "floor",
+                        "nearest",
+                        "trunc"
+                    ],
+                    "type": "string"
+                },
+                "smallestUnit": {
+                    "description": "The unit to round to. For example, to round to the nearest minute, use\n`smallestUnit: 'minute'`. This option is required.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.RoundingMode": {
+            "enum": [
+                "ceil",
+                "floor",
+                "nearest",
+                "trunc"
+            ],
+            "type": "string"
+        },
+        "Temporal.Time": {
+            "description": "A `Temporal.Time` represents a wall-clock time, with a precision in\nnanoseconds, and without any time zone. \"Wall-clock time\" refers to the\nconcept of a time as expressed in everyday usage — the time that you read\noff the clock on the wall. For example, it could be used to represent an\nevent that happens daily at a certain time, no matter what time zone.\n\n`Temporal.Time` refers to a time with no associated calendar date; if you\nneed to refer to a specific time on a specific day, use\n`Temporal.DateTime`. A `Temporal.Time` can be converted into a\n`Temporal.DateTime` by combining it with a `Temporal.Date` using the\n`toDateTime()` method.\n\nSee https://tc39.es/proposal-temporal/docs/time.html for more details.",
+            "properties": {
+                "hour": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.TimeFields": {
+            "properties": {
+                "hour": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.TimeLike": {
+            "properties": {
+                "hour": {
+                    "type": "number"
+                },
+                "microsecond": {
+                    "type": "number"
+                },
+                "millisecond": {
+                    "type": "number"
+                },
+                "minute": {
+                    "type": "number"
+                },
+                "nanosecond": {
+                    "type": "number"
+                },
+                "second": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.TimeZone": {
+            "description": "A `Temporal.TimeZone` is a representation of a time zone: either an\n{@link https://www.iana.org/time-zones|IANA time zone}, including\ninformation about the time zone such as the offset between the local time\nand UTC at a particular time, and daylight saving time (DST) changes; or\nsimply a particular UTC offset with no DST.\n\nSince `Temporal.Instant` and `Temporal.DateTime` do not contain any time\nzone information, a `Temporal.TimeZone` object is required to convert\nbetween the two.\n\nSee https://tc39.es/proposal-temporal/docs/timezone.html for more details.",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.TimeZoneProtocol": {
+            "description": "A plain object implementing the protocol for a custom time zone.",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.ToInstantOptions": {
+            "properties": {
+                "disambiguation": {
+                    "description": "Controls handling of invalid or ambiguous times caused by time zone\noffset changes like Daylight Saving time (DST) transitions.\n\nThis option is only relevant if a `DateTime` value does not exist in the\ndestination time zone (e.g. near \"Spring Forward\" DST transitions), or\nexists more than once (e.g. near \"Fall Back\" DST transitions).\n\nIn case of ambiguous or non-existent times, this option controls what\nexact time to return:\n- `'compatible'`: Equivalent to `'earlier'` for backward transitions like\n   the start of DST in the Spring, and `'later'` for forward transitions\n   like the end of DST in the Fall. This matches the behavior of legacy\n   `Date`, of libraries like moment.js, Luxon, or date-fns, and of\n   cross-platform standards like [RFC 5545\n   (iCalendar)](https://tools.ietf.org/html/rfc5545).\n- `'earlier'`: The earlier time of two possible times\n- `'later'`: The later of two possible times\n- `'reject'`: Throw a RangeError instead\n\nThe default is `'compatible'`.",
+                    "enum": [
+                        "compatible",
+                        "earlier",
+                        "later",
+                        "reject"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.ToStringOptions": {
+            "properties": {
+                "fractionalSecondDigits": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        "auto"
+                    ]
+                },
+                "roundingMode": {
+                    "$ref": "#/definitions/Temporal.RoundingMode",
+                    "description": "Controls how rounding is performed:\n- `nearest`: Round to the nearest of the values allowed by\n   `roundingIncrement` and `smallestUnit`. When there is a tie, round up.\n   This mode is the default.\n- `ceil`: Always round up, towards the end of time.\n- `trunc`: Always round down, towards the beginning of time.\n- `floor`: Also round down, towards the beginning of time. This mode acts\n   the same as `trunc`, but it's included for consistency with\n   `Temporal.Duration.round()` where negative values are allowed and\n   `trunc` rounds towards zero, unlike `floor` which rounds towards\n   negative infinity which is usually unexpected. For this reason, `trunc`\n   is recommended for most use cases."
+                },
+                "smallestUnit": {
+                    "enum": [
+                        "microsecond",
+                        "microseconds",
+                        "millisecond",
+                        "milliseconds",
+                        "minute",
+                        "minutes",
+                        "nanosecond",
+                        "nanoseconds",
+                        "second",
+                        "seconds"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.YearMonth": {
+            "description": "A `Temporal.YearMonth` represents a particular month on the calendar. For\nexample, it could be used to represent a particular instance of a monthly\nrecurring event, like \"the June 2019 meeting\".\n\nSee https://tc39.es/proposal-temporal/docs/yearmonth.html for more details.",
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "daysInMonth": {
+                    "type": "number"
+                },
+                "daysInYear": {
+                    "type": "number"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "isLeapYear": {
+                    "type": "boolean"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "monthsInYear": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.YearMonthFields": {
+            "properties": {
+                "calendar": {
+                    "$ref": "#/definitions/Temporal.CalendarProtocol"
+                },
+                "era": {
+                    "type": "string"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Temporal.YearMonthLike": {
+            "properties": {
+                "calendar": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Temporal.CalendarProtocol"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "era": {
+                    "type": "string"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
+

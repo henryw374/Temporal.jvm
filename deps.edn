@@ -1,0 +1,4 @@
+{:paths   []
+ :deps    {org.threeten/threeten-extra {:mvn/version "1.5.0"}}
+ :aliases {:build {:extra-paths ["dev/src-build"]
+                   :extra-deps  {badigeon/badigeon {:mvn/version "1.0"}}}}}
