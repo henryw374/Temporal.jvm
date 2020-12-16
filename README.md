@@ -1,43 +1,97 @@
 # Temporal.java
 
-Pure Java implementation of proposal-temporal.
+Pure Java implementation of [ECMA Temporal](), with light 1-1 wrappers for compile-to-js JVM languages, 
+such as Kotlin, Scala and Clojure.
 
-Can be used by compile-to-js jvm languages such as Kotlin, Scala and Clojure
+# Rationale
 
-## Need to answer first... 
+* Use your preferred JVM language on the server and its equivalent in JS
+* Write cross-platform code involving dates and times
+* Use the Temporal API since it is smaller than java.time and browser environments are payload-sensitive
+* Map the temporal API to Java once and leverage that from any JVM language
 
-Constructors?
-Why have 
+# Goals
 
-DateTime
-DateTimeFields
-DateTimeISOFields
-DateTimeLike
+* Leverage native date api on the client - minimal wrapper functions required
+* zero garbage overhead on the jvm - use platform java.time entities and work with those via static methods
 
+# Status 
 
-## Usage
+## Milestones
 
-FIXME
+| Milestone | Status |
+|-----------|--------|
+| API       | Started |
+| Tests (auto-conversion from js) | Not Started |
+| Java Implementation | Not Started |
+| Clojure Wrapper | Not Started |
+| Scala Wrapper | Not Started |
+| Kotlin Wrapper | Not Started |
 
-## Build
+## Entities
 
-generate json schema 
+| Temporal Entity    | Java Implementation ? |
+|---------------------|-------------|
+|  Absolute | No        |
+| TimeZone | No        |
+| DateTime | No        |
+| Date | No        |
+| Time | No        |
+| YearMonth | No        |
+ | MonthDay        | No        |
+| Duration  | No        |
+ | ZonedDateTime    | No        |
+|Temporal.now | No        |
 
-`typescript-json-schema "../../proposal-temporal/polyfill/*.ts" * -o ../../resources/temporal-schema.json`
+# Usage
 
-echo '{:deps {  thheller/shadow-cljs {:mvn/version "2.11.5"} }}' > deps.edn
-echo '{:deps {}}' > shadow-cljs.edn
-echo '{}' > package.json
+## From Java 
 
+```java
+
+import com.widdindustries.Temporal;
+import java.time.LocalDateTime;
+
+//...
+
+LocalDateTime foo = Temporal.DateTime.from("2018-07-25T08:08:44.026");
+
+```
+
+## From Clojure(Script)
+
+```clojure
+
+(require '[com.widdindustries.temporal :as temporal])
+
+(temporal/date-time-from "2018-07-25T08:08:44.026")
+
+```
+
+## Code Generation Steps
+
+## Translate TS definitions to data
+
+cd dev/ts-to-java
 
 npx shadow-cljs node-repl
 
+start nrepl  - use standard port file
+
+in repl:
+
 (shadow/repl :node-repl) 
+
+## Data -> API
+
+## JS tests -> Java tests
 
 
 ## License
 
-Copyright © 2020 FIXME
+Licensed under the Apache 2.0 License
+
+Copyright © 2020 Widd Industries Ltd
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
