@@ -1,19 +1,19 @@
 # Temporal.java
 
-Pure Java implementation of [ECMA Temporal](), with light 1-1 wrappers for compile-to-js JVM languages, 
+Pure Java implementation of [ECMA Temporal](https://github.com/tc39/proposal-temporal/), with light 1-1 wrappers for compile-to-js JVM languages, 
 such as Kotlin, Scala and Clojure.
 
 # Rationale
 
-* Use your preferred JVM language on the server and its equivalent in JS
-* Write cross-platform code involving dates and times
+* Use your preferred JVM language on the server and its equivalent where JS is required (browsers etc)
+* Write cross-platform code involving dates and times (same API, same semantics, same tests etc)
 * Use the Temporal API since it is smaller than java.time and browser environments are payload-sensitive
 * Map the temporal API to Java once and leverage that from any JVM language
 
 # Goals
 
 * Leverage native date api on the client - minimal wrapper functions required
-* zero garbage overhead on the jvm - use platform java.time entities and work with those via static methods
+* zero garbage overhead on the jvm - use wrapper-free platform java.time entities and work with those via static methods
 
 # Status 
 
@@ -32,16 +32,16 @@ such as Kotlin, Scala and Clojure.
 
 | Temporal Entity    | Java Implementation ? |
 |---------------------|-------------|
-|  Absolute | No        |
-| TimeZone | No        |
-| DateTime | No        |
-| Date | No        |
-| Time | No        |
-| YearMonth | No        |
- | MonthDay        | No        |
-| Duration  | No        |
- | ZonedDateTime    | No        |
-|Temporal.now | No        |
+|  Instant | Not Started        |
+| TimeZone | Not Started        |
+| DateTime | Not Started        |
+| Date | Not Started        |
+| Time | Not Started        |
+| YearMonth | Not Started        |
+ | MonthDay        | Not Started        |
+| Duration  | Not Started        |
+ | ZonedDateTime    | Not Started        |
+|Temporal.Now | Not Started        |
 
 # Usage
 
@@ -68,6 +68,14 @@ LocalDateTime foo = Temporal.DateTime.from("2018-07-25T08:08:44.026");
 
 ```
 
+## From Kotlin(.js)
+
+TBD
+
+## From Scala(.js)
+
+TBD
+
 ## Code Generation Steps
 
 ## Translate TS definitions to data
@@ -89,17 +97,8 @@ in repl:
 
 ## License
 
-Licensed under the Apache 2.0 License
+This program and the accompanying materials are made available under the
+terms of the Apache 2.0 which is available at
 
 Copyright © 2020 Widd Industries Ltd
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
